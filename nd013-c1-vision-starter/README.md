@@ -20,7 +20,7 @@ To set up locally this project, an NVIDIA GPU with the latest driver must be ins
 
 Follow [the README therein](./build/README.md) to create a docker container and install all prerequisites.
 
-# Data:
+# Data
 
 For this project, we will be using data from the [Waymo Open dataset](https://waymo.com/open/).
 
@@ -49,6 +49,12 @@ The Waymo Open dataset consists of tf-records containing images with different w
 <p align="center">
 Different weather driving conditions (day, night, rainy, foggy) and different classes (car, cyclist, pedestrian)
 </p>
+
+In order to run the juypter notebook that contains the data analysis[here](./Exploratory%20Data%20Analysis.ipynb) inside the docker container:
+
+```
+jupyter notebook --port 3002 --ip=0.0.0.0 --allow-root
+```
 
 To have a better idea about the distribution of the labels in our dataset, we sample 500000 images randomly, and we plot the number of labels found per class ("car", "cyclist", "pedestrian").
 
@@ -245,6 +251,12 @@ Vertical flip
 <p align="center">
 Random gaussian patches
 </p>
+
+In order to run the juypter notebook to explore the data augmentation[here](./Explore%20augmentations.ipynb) inside the docker container:
+
+```
+jupyter notebook --port 3002 --ip=0.0.0.0 --allow-root
+```
 
 The corresponding config file used for training/validation can be found [here](./experiments/exp03/pipeline_exp03.config).
 
