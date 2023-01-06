@@ -252,7 +252,7 @@ Vertical flip
 Random gaussian patches
 </p>
 
-In order to run the juypter notebook to explore the data augmentation[here](./Explore%20augmentations.ipynb) inside the docker container:
+In order to run the juypter notebook to explore the [data augmentation](./Explore%20augmentations.ipynb) inside the docker container:
 
 ```
 jupyter notebook --port 3002 --ip=0.0.0.0 --allow-root
