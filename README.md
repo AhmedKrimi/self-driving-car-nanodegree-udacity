@@ -12,21 +12,21 @@ In this project, students will create a convolutional neural network to detect a
 
 ## Project 2 - Sensor Fusion
 
-### 3D Object Detection
+### Project 2.1 - 3D Object Detection
 Students will first load and preprocess 3D lidar point clouds, and then use a deep learning approach to detect and classify objects (e.g. vehicles, pedestrians). Students will evaluate and visualize the objects, including calculating key performance metrics. This project combines with the Sensor Fusion project to form a full detection pipeline.
 
-### Sensor Fusion
+### Project 2.2 - Sensor Fusion
 In this project, students will solve a challenging multi-target tracking task by fusing camera and lidar detections. They will implement an Extended Kalman filter to track several vehicles over time, including the different measurement models for camera and lidar. This also requires a track management module for track initialization and deletion, and a data association module to decide which measurement originated from which track. Finally, students will evaluate and visualize the tracked objects. To complete this project, students will use a real-world dataset and therefore face many everyday challenges of a sensor fusion engineer.
 
-## Project 3 -Localization
+## Project 3 - Localization
 
 In this project, students will use either ICP or NDT, two scan matching algorithms, to align point cloud scans from the CARLA simulator and recover the position of a simulated car with lidar. Students will need to achieve sufficient accuracy for the entirety of a drive within the simulated environment, updating the vehicle’s location appropriately as it moves and obtains new lidar data.
 
-## Project 4 -Planning
+## Project 4 - Planning
 
 In this project, students will implement two of the main components of a traditional hierarchical planner: the behavior planner and the motion planner. Both will work in unison to be able to avoid static objects parked on the side of the road, avoid crashing with these vehicles by executing either a “nudge” or a “lane change” maneuver, handle any type of intersection, and track the centerline on the traveling lane.
 
-## Project 5 -Control
+## Project 5 - Control
 
 Students will learn how to control a car once they have a desired trajectory. In other words, how to activate the throttle and the steering wheel of the car to move it following a trajectory described by coordinates. The course will cover the most basic but also the most common controller: the Proportional Integral Derivative or PID controller. Students will understand the basic principle of feedback control and how they are used in autonomous driving techniques.
 
