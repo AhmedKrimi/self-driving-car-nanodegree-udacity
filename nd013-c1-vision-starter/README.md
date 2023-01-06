@@ -38,7 +38,9 @@ The Waymo Open dataset consisting of tf-records containing images with different
   <img alt="Different weather driving condition (day, night, rainy, foggy) and different classes (car, cyclist, pedestrian)" src="./images/different_weathers_conditions_w_labels.jpg" class="center">
 </picture>
 
-<center> Different weather driving condition (day, night, rainy, foggy) and different classes (car, cyclist, pedestrian) </center>
+<p align="center">
+Different weather driving condition (day, night, rainy, foggy) and different classes (car, cyclist, pedestrian)
+</p>
 
 To have a better idea about the distributions of the labels in our dataset, we sample 500000 images randomly, and we plot the number of labels found per class ("car", "cyclist", "padasterian").
 
@@ -55,27 +57,208 @@ The distribution of the classes in 500000 images:
   <img alt="Classes distribution taken from 500000 images" src="./images/classes_dist.png" class="center">
 </picture>
 
-<center> Classes distribution taken from 500000 images </center>
+<p align="center">
+Classes distribution taken from 500000 images
+</p>
 
-The dataset is highly unbalanced which the class car consisting of the majority, which might affect the accuracy of the detector. However, this problem can be mitigated using data augmentation.
-
+The dataset is very unbalanced with the class car being in the majority, which can affect the accuracy of the detector. However, this problem can be mitigated by using data augmentation.
 
 #### Cross validation
-This section should detail the cross validation strategy and justify your approach.
+In this project, we use 100 tfrecord files for training, validation, and testing. 80% of the tfrecord files are used for training, 10% for validation to check if the model is overfitting (e.g., validation loss starts to increase), and the remaining 10% for testing to evaluate the performance of the model after the end of the training process and to see if the model generalizes well on unseen data.
 
 ### Training
 #### Reference experiment
-In the section, a MODEL is trained using config file in config_file_in folder, with a batch size of 2.
+In the section, we use a SSD Resnet 50 640x640 model, which a single shot detector, that is faster than the previous state-of-the-art for single shot detectors (YOLO), and significantly more accurate, in fact as accurate as slower techniques that perform explicit regionproposals and pooling (including Faster R-CNN). [1]
+This model is trained using a batch size of 2, all other details are indicated in the reference [config file](./experiments/reference/pipeline_reference.config).
 
-The results are:
+The learning and validation curves for the reference experiment show that the training/validation losses are still high (around 0.5 as total training loss at the end of the training), which indicates that they hyperparameters choice was not appropriate, as shown in the following figure:
+
+</picture>
+  <img alt="Training and validation losses of the reference experiment" src="./images/training_validation_losses_reference.jpg" class="center">
+</picture>
+
+<p align="center">
+Training and validation losses of the reference experiment
+</p>
+
+In addition, the recall and precision curves shows that the model performed poorly on the validation data as shown in the following figure:
+
+Precision curves:
+
+</picture>
+  <img alt="Precision curves of the reference experiment" src="./images/precision_reference.jpg" class="center">
+</picture>
+
+<p align="center">
+Precision curves of the reference experiment
+</p>
+
+Recall curves:
+
+</picture>
+  <img alt="Recall curves of the reference experiment" src="./images/recall_reference.jpg" class="center">
+</picture>
+
+<p align="center">
+Recall curves of the reference experiment
+</p>
 
 #### Improve on the reference
+
 #### First expirement
-To improve the reference experiment, we start by increasing the batch size from 2 to 4, increase the batch size comes with the benefits of a less noisy gradient, which helps find a better optimization direction while optimizing the model.
+
+To improve the reference experiment, we start by increasing the batch size from 2 to 4, increasing the batch size comes with the benefits of a less noisy gradient, which helps find a better optimization direction while optimizing the model the corresponding config file can be found [here](./experiments/exp01/pipeline_exp01.config).
+
+The following figure shows the training and validation losses of the first experiment relatively to the reference one:
+
+</picture>
+  <img alt="Training and validation losses of the first expirement in comparison to the reference one." src="./images/training_validation_losses_exp01_reference.jpg" class="center">
+</picture>
+
+<p align="center">
+Training and validation losses of the first expirement in comparison to the reference one.
+</p>
+
+Increasing the batch size has a major impact on improving the training process, since it provides a better gradient estimate during the optimization of the model parameters. However this comes with price of a higher computational consumption.
+
+Precision curves:
+
+</picture>
+  <img alt="Precision curves of the first experiment in comparison to the reference one" src="./images/precision_first_exp_reference.jpg" class="center">
+</picture>
+
+<p align="center">
+Precision curves of the first experiment in comparison to the reference one
+</p>
+
+Recall curves:
+
+</picture>
+  <img alt="Recall curves of the first experiment in comparison to the reference one" src="./images/recall_first_exp_reference.jpg" class="center">
+</picture>
+
+<p align="center">
+Precision curves of the first experiment in comparison to the reference one
+</p>
+
+The precision and recall curves of the first experiment have improved significantly due to the increase in the batch size.
+
 #### Second expirement
-Another hyperparameter that plays a curcial in the training phase is the learning rate, a high learning rate will result in overshooting/divergence while optimizing the model. In this experiment, we decrease the learning rate from to bla bla
+Another hyperparameter that plays a curcial in the training phase is the learning rate, a high learning rate will result in overshooting/divergence while optimizing the model. In this experiment, we decrease the learning rate from to bla bla.
+
+The following figure shows the training and validation losses of the second experiment relatively to the first and reference ones:
+
+</picture>
+  <img alt="Recall curves of the second experiment" src="./images/training_validation_losses_exp02.jpg" class="center">
+</picture>
+
+<p align="center">
+Training and validation losses of the second experiment in comparison to the first and reference ones
+</p>
+
+Increasing the batch size has a major impact on improving the training process, since it provides a better gradient estimate during the optimization of the model parameters. However this comes with price of a higher computational consumption.
+
+Precision curves:
+
+</picture>
+  <img alt="Precision curves of the second experiment in comparison to the first one" src="./images/precision_second_exp.jpg" class="center">
+</picture>
+
+<p align="center">
+Precision curves of the second experiment in comparison to the first and reference ones
+</p>
+
+Recall curves:
+
+</picture>
+  <img alt="Recall curves of the second experiment in comparison to the first one" src="./images/recall_second_exp.jpg" class="center">
+</picture>
+
+<p align="center">
+Precision curves of the second experiment in comparison to the first and reference ones.
+</p>
+
+
 #### Add data augmentation
 As discussed in the data analysis chapter, the data is highly unbalanced, which might induce a bias during inference time since the model has seen the majority class (class "car") more than the other classes ("cyclist" and "pedestrian"). One way to mitigate the bias is to use data augmentation.
-Some examples of used data augmentation technics to improve the performance of the model are:  
+Some examples of used data augmentation technics to improve the performance of the model are:
 
+- Random rotation by 90 degrees with a probability of 0.3:
 
+</picture>
+  <img alt="Random rotation by 90 degrees" src="./images/rotation_90_example.png" class="center">
+</picture>
+
+<p align="center">
+Random rotation by 90 degrees
+</p>
+
+- Random RGB to gray with a probability of 0.4:
+
+</picture>
+  <img alt="RGB to grayscale transforamtion" src="./images/rgb_to_grayscale_example.png" class="center">
+</picture>
+
+<p align="center">
+RGB to grayscale transforamtion
+</p>
+
+- Random horizontal and vertical flips with a probability of 0.3:
+
+</picture>
+  <img alt="Horizontal flip" src="./images/horizontal_flip_example.png" class="center">
+</picture>
+
+<p align="center">
+Horizontal flip
+</p>
+
+</picture>
+  <img alt="Vertical flip" src="./images/vertical_flip_example.png" class="center">
+</picture>
+
+<p align="center">
+Vertical flip
+</p>
+
+- Random gaussian patches with a probablity of 0.2:
+
+</picture>
+  <img alt="Random gaussian patches" src="./images/gaussian_patches_example.png" class="center">
+</picture>
+
+<p align="center">
+Random gaussian patches
+</p>
+
+The following figure shows the training and validation losses of the third experiment (with data augmentation) relatively to the previous experiments:
+
+</picture>
+  <img alt="Recall curves of the third experiment" src="./images/training_validation_losses_exp03.jpg" class="center">
+</picture>
+
+<p align="center">
+Training and validation losses of the third experiment in comparison to the previous ones
+</p>
+
+Increasing the batch size has a major impact on improving the training process, since it provides a better gradient estimate during the optimization of the model parameters. However this comes with price of a higher computational consumption.
+
+Precision curves:
+
+</picture>
+  <img alt="Precision curves of the third experiment in comparison to the previous ones" src="./images/precision_third_exp.jpg" class="center">
+</picture>
+
+<p align="center">
+Precision curves of the third experiment in comparison to the previous ones
+</p>
+
+Recall curves:
+
+</picture>
+  <img alt="Recall curves of the third experiment in comparison to the previous ones" src="./images/recall_third_exp.jpg" class="center">
+</picture>
+
+<p align="center">
+Precision curves of the third experiment in comparison to the previous ones
+</p>
