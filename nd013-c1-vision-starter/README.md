@@ -295,3 +295,7 @@ Adding data augmentation shows slightly better performance as shown by the preci
 # Conclusion
 
 In this project, we have trained a single shot detector Resnet 50 640x640 model, to detect objects (cars, cyclists, pedestrians) while driving in an Urban environment in different conditions. As a first experiment, we trained the model using reference parameters, which resulted in poor performance. To improve the latter, we have increased the batch size to better estimate the gradient while optimizing the model parameters (first experiment). We also fine-tuned the learning rate to avoid overshooting (second experiment). Finally, we have used data augmentation technics to mitigate the problem of overfitting to the majority class since the dataset is highly imbalanced (third experiment). In future work, one can explore balancing the dataset before training which might lead to better performances.
+
+### References:
+
+[1] Wei Liu and al. SSD: Single Shot MultiBox Detector [here](https://www.cs.unc.edu/~wliu/papers/ssd.pdf).
