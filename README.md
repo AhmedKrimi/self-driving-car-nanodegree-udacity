@@ -32,4 +32,4 @@ Students will learn how to control a car once they have a desired trajectory. In
 
 
 ### References:
-Projects descriptions are takem from [the official page of the program](https://www.udacity.com/course/self-driving-car-engineer-nanodegree--nd0013) 
+Projects descriptions are taken from [the official page of the program](https://www.udacity.com/course/self-driving-car-engineer-nanodegree--nd0013) 
