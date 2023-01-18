@@ -4,8 +4,7 @@
  *      Author: Mathilde Badoual
  **********************************************/
 
-#ifndef PID_CONTROLLER_H
-#define PID_CONTROLLER_H
+#pragma once
 
 class PID {
 public:
@@ -17,19 +16,27 @@ public:
     /*
     * Errors
     */
-
+    // Cross-track error
+    double cte;
+    // Differential cross-track error
+    double diff_cte;
+    // Integral cross-track error
+    double int_cte;
     /*
     * Coefficients
     */
-
+    double Kp;
+    double Ki;
+    double Kd;     
     /*
     * Output limits
     */
-  
+    double output_lim_max;
+    double output_lim_min;
     /*
     * Delta time
     */
-
+    double delta_time;
     /*
     * Constructor
     */
@@ -60,7 +67,4 @@ public:
     */
     double UpdateDeltaTime(double new_delta_time);
 };
-
-#endif //PID_CONTROLLER_H
-
 
