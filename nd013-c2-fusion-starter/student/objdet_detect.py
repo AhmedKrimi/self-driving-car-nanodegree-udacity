@@ -24,7 +24,8 @@ sys.path.append(os.path.normpath(os.path.join(SCRIPT_DIR, PACKAGE_PARENT)))
 
 # model-related
 from tools.objdet_models.resnet.models import fpn_resnet
-from tools.objdet_models.resnet.utils.evaluation_utils import decode, post_processing 
+from tools.objdet_models.resnet.utils.evaluation_utils import decode, post_processing
+import tools.objdet_models.resnet.utils.torch_utils as torch_utils 
 
 from tools.objdet_models.darknet.models.darknet2pytorch import Darknet as darknet
 from tools.objdet_models.darknet.utils.evaluation_utils import post_processing_v2
@@ -196,7 +197,14 @@ def detect_objects(input_bev_maps, model, configs):
             ####### ID_S3_EX1-5 START #######     
             #######
             print("student task ID_S3_EX1-5")
-
+            outputs['hm_cen'] = torch_utils._sigmoid(outputs['hm_cen'])
+            outputs['cen_offset'] = torch_utils._sigmoid(outputs['cen_offset'])
+            # detections size (batch_size, K, 10)
+            detections = decode(outputs['hm_cen'], outputs['cen_offset'], outputs['direction'], outputs['z_coor'],
+                                outputs['dim'], K=configs.max_objects)
+            detections = detections.cpu().numpy().astype(np.float32)
+            detections = post_processing(detections, configs)
+            detections = detections[0][1]
             #######
             ####### ID_S3_EX1-5 END #######     
 
@@ -209,12 +217,19 @@ def detect_objects(input_bev_maps, model, configs):
     objects = [] 
 
     ## step 1 : check whether there are any detections
-
+    if len(detections) > 0:
         ## step 2 : loop over all detections
-        
+            for detection in detections:
             ## step 3 : perform the conversion using the limits for x, y and z set in the configs structure
-        
-            ## step 4 : append the current object to the 'objects' array
+                id, bev_x, bev_y, z, h, bev_w, bev_l, yaw = detection
+                x = bev_y / configs.bev_height * (configs.lim_x[1] - configs.lim_x[0])
+                y = bev_x / configs.bev_width * (configs.lim_y[1] - configs.lim_y[0])- 0.5*(configs.lim_y[1] - configs.lim_y[0])
+                w = bev_w / configs.bev_width * (configs.lim_y[1] - configs.lim_y[0]) 
+                l = bev_l / configs.bev_height * (configs.lim_x[1] - configs.lim_x[0])
+                ## step 4 : append the current object to the 'objects' array
+                if ((x >= configs.lim_x[0]) and (x <= configs.lim_x[1]) and (y >= configs.lim_y[0]) and (y <= configs.lim_y[1])and (z >= configs.lim_z[0]) and (z <= configs.lim_z[1])):
+                    objects.append([id, x, y, z, h, w, l, yaw])
+    #######
         
     #######
     ####### ID_S3_EX2 START #######   
