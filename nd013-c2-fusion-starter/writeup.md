@@ -1,3 +1,37 @@
+# Writeup: Mid-Term Project: 3D Object Detection
+
+
+### Examples of vehicles with varying degrees of visibility in the point-cloud:
+</picture>
+  <img alt="Vehicles in the point-cloud" src="./img/pcl_1.png" class="center">
+</picture>
+</picture>
+  <img alt="Vehicles in the point-cloud" src="./img/pcl_2.png" class="center">
+</picture>
+</picture>
+  <img alt="Vehicles in the point-cloud" src="./img/pcl_3.png" class="center">
+</picture>
+</picture>
+  <img alt="Vehicles in the point-cloud" src="./img/pcl_4.png" class="center">
+</picture>
+
+
+
+### Examples of vehicles visiblity using intensity channel of point-cloud:
+
+</picture>
+  <img alt="Vehicles in the point-cloud using intensity channel" src="./img/intense_1.png" class="center">
+</picture>
+</picture>
+  <img alt="Vehicles in the point-cloud using intensity channel" src="./img/intense_2.png" class="center">
+</picture>
+</picture>
+  <img alt="Vehicles in the point-cloud using intensity channel" src="./img/intense_3.png" class="center">
+</picture>
+
+The most stable features from the point-cloud prespective are the rear bumper and the chassis of the vehicles. Additional features like the vehicles front lights can be detected using the lidar intensity channel.
+
+
 # Writeup: Track 3D-Objects Over Time
 
 Please use this starter template to answer the following questions:
