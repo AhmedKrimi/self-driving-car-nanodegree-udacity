@@ -1,35 +1,44 @@
-# Writeup: Mid-Term Project: 3D Object Detection
+# Mid-Term Project: 3D Object Detection Writeup 
 
 
 ### Examples of vehicles with varying degrees of visibility in the point-cloud:
 </picture>
-  <img alt="Vehicles in the point-cloud" src="./img/pcl_1.png" class="center">
+  <img alt="Vehicles in the point-cloud" src="./img/1.png" class="center">
 </picture>
 </picture>
-  <img alt="Vehicles in the point-cloud" src="./img/pcl_2.png" class="center">
+  <img alt="Vehicles in the point-cloud" src="./img/2.png" class="center">
 </picture>
 </picture>
-  <img alt="Vehicles in the point-cloud" src="./img/pcl_3.png" class="center">
+  <img alt="Vehicles in the point-cloud" src="./img/3.png" class="center">
 </picture>
 </picture>
-  <img alt="Vehicles in the point-cloud" src="./img/pcl_4.png" class="center">
+  <img alt="Vehicles in the point-cloud" src="./img/4.png" class="center">
 </picture>
-
+</picture>
+  <img alt="Vehicles in the point-cloud" src="./img/5.png" class="center">
+</picture>
+</picture>
+  <img alt="Vehicles in the point-cloud" src="./img/6.png" class="center">
+</picture>
+</picture>
+  <img alt="Vehicles in the point-cloud" src="./img/7.png" class="center">
+</picture>
 
 
 ### Examples of vehicles visiblity using intensity channel of point-cloud:
 
 </picture>
-  <img alt="Vehicles in the point-cloud using intensity channel" src="./img/intense_1.png" class="center">
+  <img alt="Vehicles in the point-cloud using intensity channel" src="./img/8.png" class="center">
 </picture>
 </picture>
-  <img alt="Vehicles in the point-cloud using intensity channel" src="./img/intense_2.png" class="center">
+  <img alt="Vehicles in the point-cloud using intensity channel" src="./img/9.png" class="center">
 </picture>
 </picture>
-  <img alt="Vehicles in the point-cloud using intensity channel" src="./img/intense_3.png" class="center">
+  <img alt="Vehicles in the point-cloud using intensity channel" src="./img/10.png" class="center">
 </picture>
 
-The most stable features from the point-cloud prespective are the rear bumper and the chassis of the vehicles. Additional features like the vehicles front lights can be detected using the lidar intensity channel.
+
+The most stable feature from the point-cloud prespective is the rear bumper of the vehicles since the first reflection of the beam comes from it. Additional features like the vehicles front lights can be detected using the lidar intensity channel. Finally, it is easily to recognize a car from its chassis using the point-cloud.
 
 
 # Writeup: Track 3D-Objects Over Time
