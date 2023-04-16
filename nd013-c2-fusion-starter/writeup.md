@@ -45,16 +45,28 @@ The most stable feature from the point-cloud prespective is the rear bumper of t
 
 ### Root-mean-square deviation (RMSE):
 
-#### First sequence - Multiple tracks tracking:
+
+#### Single track tracking - RMSE for EKF Task (Lidar only):
+</picture>
+  <img alt="Single track tracking - RMSE for EKF Task with track management" src="./img/RMSEpng_sequence_2.png" class="center">
+</picture>
+
+#### Single track tracking - RMSE for EKF Task with track management (Lidar only):
+</picture>
+  <img alt="Single track tracking - RMSE for EKF Task (Lidar only)" src="./img/RMSEpng_sequence_2_with_track_management.png" class="center">
+</picture>
+
+
+#### Multiple tracks tracking - Lidar only:
+
+</picture>
+  <img alt="Multiple tracks tracking - Lidar only"  src="./img/RMSEpng_sequence_1_lidar_only.png" class="center">
+</picture>
+
+#### Multiple tracks tracking - Lidar and Camera fusion:
 
 </picture>
   <img alt="First sequence - Multiple tracks tracking" src="./img/RMSEpng_sequence_1.png" class="center">
-</picture>
-
-#### Second sequence - Single track tracking:
-
-</picture>
-  <img alt="First sequence - Multiple tracks tracking" src="./img/RMSEpng_sequence_2.png" class="center">
 </picture>
 
 
