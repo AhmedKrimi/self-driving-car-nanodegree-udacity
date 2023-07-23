@@ -143,9 +143,47 @@ Eigen::Matrix4d ICP(PointCloudT::Ptr target, PointCloudT::Ptr source, Pose start
 	return transformation_matrix;
 }
 
-int main()
+Eigen::Matrix4d NDT(PointCloudT::Ptr target, PointCloudT::Ptr source, Pose startingPose, int iterations)
 {
+	pcl::NormalDistributionsTransform<pcl::PointXYZ, pcl::PointXYZ> ndt;
+	// Setting minimum transformation difference for termination condition.
+	ndt.setTransformationEpsilon(1e-3);
+	// Setting maximum step size for More-Thuente line search.
+	ndt.setStepSize(1);
+	// Setting Resolution of NDT grid structure (VoxelGridCovariance).
+	ndt.setResolution(5);
+	ndt.setInputTarget(target);
+	pcl::console::TicToc time;
+	time.tic();
 
+	Eigen::Matrix4f init_guess = transform3D(startingPose.rotation.yaw, startingPose.rotation.pitch, startingPose.rotation.roll, startingPose.position.x, startingPose.position.y, startingPose.position.z).cast<float>();
+
+	// Setting max number of registration iterations.
+	ndt.setMaximumIterations(iterations);
+	ndt.setInputSource(source);
+
+	pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_ndt(new pcl::PointCloud<pcl::PointXYZ>);
+	ndt.align(*cloud_ndt, init_guess);
+
+	cout << "Normal Distributions Transform has converged:" << ndt.hasConverged() << " score: " << ndt.getFitnessScore() << " time: " << time.toc() << " ms" << endl;
+
+	Eigen::Matrix4d transformation_matrix = ndt.getFinalTransformation().cast<double>();
+
+	return transformation_matrix;
+}
+
+int main(int argc, char *argv[])
+{
+    // flag to use ICP or NDT
+	bool use_ndt = true;
+
+    if (argc > 1) {
+        std::string arg = argv[1];
+        // Check if the user want to use ICP alg.        
+		if (arg == "2") {
+            use_ndt = false;
+        }
+    }
 	auto client = cc::Client("localhost", 2000);
 	client.SetTimeout(2s);
 	auto world = client.GetWorld();
@@ -255,7 +293,7 @@ int main()
 			vg.setLeafSize(filter_resolution, filter_resolution, filter_resolution);
 			vg.filter(*cloudFiltered);
 			// Find pose transform by using ICP or NDT matching
-			Eigen::Matrix4d transform = ICP(mapCloud, cloudFiltered, pose, 50);
+			Eigen::Matrix4d transform = (use_ndt ? NDT(mapCloud, cloudFiltered, pose, 5) : ICP(mapCloud, cloudFiltered, pose, 50));
 			pose = getPose(transform);
 			// Transform scan so it aligns with ego's actual pose and render that scan
 			PointCloudT::Ptr scanCorrected(new PointCloudT);
