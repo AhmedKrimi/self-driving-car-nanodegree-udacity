@@ -18,7 +18,7 @@ Students will first load and preprocess 3D lidar point clouds, and then use a de
 ### Project 2.2 - Sensor Fusion
 In this project, students will solve a challenging multi-target tracking task by fusing camera and lidar detections. They will implement an Extended Kalman filter to track several vehicles over time, including the different measurement models for camera and lidar. This also requires a track management module for track initialization and deletion, and a data association module to decide which measurement originated from which track. Finally, students will evaluate and visualize the tracked objects. To complete this project, students will use a real-world dataset and therefore face many everyday challenges of a sensor fusion engineer.
 
-## Project 3 - Localization
+## [Project 3 - Localization](./nd013-c3-localization-starter)
 
 In this project, students will use either ICP or NDT, two scan matching algorithms, to align point cloud scans from the CARLA simulator and recover the position of a simulated car with lidar. Students will need to achieve sufficient accuracy for the entirety of a drive within the simulated environment, updating the vehicle’s location appropriately as it moves and obtains new lidar data.
 
