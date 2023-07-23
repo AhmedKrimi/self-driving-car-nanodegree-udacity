@@ -293,7 +293,7 @@ int main(int argc, char *argv[])
 			vg.setLeafSize(filter_resolution, filter_resolution, filter_resolution);
 			vg.filter(*cloudFiltered);
 			// Find pose transform by using ICP or NDT matching
-			Eigen::Matrix4d transform = (use_ndt ? NDT(mapCloud, cloudFiltered, pose, 5) : ICP(mapCloud, cloudFiltered, pose, 50));
+			Eigen::Matrix4d transform = (use_ndt ? NDT(mapCloud, cloudFiltered, pose, 5) : ICP(mapCloud, cloudFiltered, pose, 5));
 			pose = getPose(transform);
 			// Transform scan so it aligns with ego's actual pose and render that scan
 			PointCloudT::Ptr scanCorrected(new PointCloudT);
